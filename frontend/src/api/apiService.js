@@ -46,7 +46,7 @@ export const healthTipAPI = {
 
 // Symptoms API
 export const symptomAPI = {
-  check: (symptoms) => api.post('/symptoms', { symptoms }),
+  check: (symptoms) => api.post('/symptoms/check', { symptoms }),
 };
 
 export default api;
