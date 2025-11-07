@@ -1,4 +1,3 @@
-// controllers/appointmentController.js
 import asyncHandler from "express-async-handler";
 import Appointment from "../models/Appointment.js";
 

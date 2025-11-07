@@ -1,6 +1,6 @@
-// controllers/chatController.js
+
 import asyncHandler from "express-async-handler";
-import Chat from "../models/Chat.js";
+import Chat from "../models/ChatRoom.js";
 
 // @desc Send a message
 // @route POST /api/chats

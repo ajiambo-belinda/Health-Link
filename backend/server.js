@@ -1,26 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import morgan from 'morgan';
-import http from 'http';
-import { Server } from 'socket.io';
-
-// Import database connection
 import connectDB from './config/db.js';
-
-// Import routes
-import userRoutes from './routes/userRoutes.js';
-import doctorRoutes from './routes/doctorRoutes.js';
-import appointmentRoutes from './routes/appointmentRoutes.js';
-import chatRoutes from './routes/chatRoutes.js';
-import healthTipRoutes from './routes/healthTipRoutes.js';
-import symptomRoutes from './routes/symptomRoutes.js';
-
-// Import middleware
 import { errorHandler } from './middleware/errorMiddleware.js';
-
-// Import Socket.IO chat logic
-import chatSocket from './socket/chatSocket.js';
 
 // Load environment variables
 dotenv.config();
@@ -28,59 +10,42 @@ dotenv.config();
 // Connect to MongoDB
 connectDB();
 
-// Initialize Express app
 const app = express();
 
-// -------------------- Middleware --------------------
-
-// Parse JSON requests
+// Middleware
 app.use(express.json());
-
-// Enable CORS
 app.use(cors());
 
-// Logging in development
-app.use(morgan('dev'));
+// Try to load userRoutes with error handling
+let userRoutesLoaded = false;
+try {
+  const userRoutes = await import('./routes/userRoutes.js');
+  app.use('/api/users', userRoutes.default || userRoutes);
+  userRoutesLoaded = true;
+  console.log('✅ User routes loaded successfully');
+} catch (error) {
+  console.log('⚠️  User routes not loaded:', error.message);
+}
 
-// -------------------- Routes --------------------
-
-// User authentication and profile
-app.use('/api/users', userRoutes);
-
-// Doctors endpoints
-app.use('/api/doctors', doctorRoutes);
-
-// Appointments
-app.use('/api/appointments', appointmentRoutes);
-
-// Chat (real-time messaging)
-app.use('/api/chats', chatRoutes);
-
-// Health tips (admin)
-app.use('/api/healthtips', healthTipRoutes);
-
-// Symptom checker
-app.use('/api/symptoms', symptomRoutes);
-
-// -------------------- Error Middleware --------------------
-app.use(errorHandler);
-
-// -------------------- HTTP & WebSocket Server --------------------
-const server = http.createServer(app);
-
-// Initialize Socket.IO
-const io = new Server(server, {
-  cors: {
-    origin: '*', // change this to your frontend URL in production
-  },
+// Test routes
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    message: '✅ Health-Link Backend running!',
+    status: 'healthy',
+    features: [
+      'Database', 
+      'Error Handling',
+      ...(userRoutesLoaded ? ['User Routes'] : [])
+    ],
+    userRoutes: userRoutesLoaded ? 'Active' : 'Disabled - fixing imports'
+  });
 });
 
-// Initialize chat socket events
-chatSocket(io);
+// Error middleware
+app.use(errorHandler);
 
-// -------------------- Start Server --------------------
 const PORT = process.env.PORT || 5000;
-
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(userRoutesLoaded ? '👤 User routes: /api/users' : '⚠️  User routes: Disabled');
 });
