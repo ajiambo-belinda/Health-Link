@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import ChatList from '../components/chat/ChatList';
-import ChatBox from '../components/chat/Chat';
+import ChatList from '../components/chat/ChatList';  // ✅ Correct path
+import ChatBox from '../components/chat/ChatBox';    // ✅ Correct path (ChatBox not Chat)
 
 const Chat = () => {
   const { user } = useAuth();
