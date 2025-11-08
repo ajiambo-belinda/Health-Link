@@ -12,6 +12,7 @@ import Register from './pages/Register';
 import Appointments from './pages/Appointments';
 import HealthTips from './pages/HealthTips';
 import SymptomChecker from './pages/SymptomChecker';
+import Chat from './pages/Chat'; // ✅ ADD THIS IMPORT
 import PatientDashboard from './pages/Dashboard/PatientDashboard';
 import DoctorDashboard from './pages/Dashboard/DoctorDashboard';
 import AdminDashboard from './pages/Dashboard/AdminDashboard';
@@ -72,6 +73,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <SymptomChecker />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/chat" 
+                element={
+                  <ProtectedRoute>
+                    <Chat />
                   </ProtectedRoute>
                 } 
               />
