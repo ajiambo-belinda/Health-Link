@@ -4,7 +4,7 @@ const ChatList = ({ onSelectChat, activeChat }) => {
   const [chats, setChats] = useState([
     {
       id: 1,
-      name: 'Dr. Belinda Anyango',
+      name: 'Dr. Sarah Johnson',
       role: 'doctor',
       lastMessage: 'How are you feeling today?',
       timestamp: new Date(Date.now() - 300000),
@@ -13,7 +13,7 @@ const ChatList = ({ onSelectChat, activeChat }) => {
     },
     {
       id: 2,
-      name: 'Dr. Juma Meltus',
+      name: 'Dr. Michael Chen',
       role: 'doctor',
       lastMessage: 'Your test results are ready',
       timestamp: new Date(Date.now() - 86400000),
@@ -22,7 +22,7 @@ const ChatList = ({ onSelectChat, activeChat }) => {
     },
     {
       id: 3,
-      name: 'Dr. Emily Omondi',
+      name: 'Dr. Emily Davis',
       role: 'doctor',
       lastMessage: 'Remember to take your medication',
       timestamp: new Date(Date.now() - 172800000),
