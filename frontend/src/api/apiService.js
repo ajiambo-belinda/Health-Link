@@ -47,6 +47,15 @@ export const healthTipAPI = {
 // Symptoms API
 export const symptomAPI = {
   check: (symptoms) => api.post('/symptoms/check', { symptoms }),
+
 };
+
+// Chat API
+export const chatAPI = {
+  getChats: () => api.get('/chats'),
+  getMessages: (chatId) => api.get(`/chats/${chatId}/messages`),
+  sendMessage: (chatId, message) => api.post(`/chats/${chatId}/messages`, { message }),
+  createChat: (participantId) => api.post('/chats', { participantId }),
+  };
 
 export default api;
