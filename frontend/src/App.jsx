@@ -12,10 +12,17 @@ import Register from './pages/Register';
 import Appointments from './pages/Appointments';
 import HealthTips from './pages/HealthTips';
 import SymptomChecker from './pages/SymptomChecker';
-import Chat from './pages/Chat'; // ✅ ADD THIS IMPORT
+import Chat from './pages/Chat';
 import PatientDashboard from './pages/Dashboard/PatientDashboard';
 import DoctorDashboard from './pages/Dashboard/DoctorDashboard';
 import AdminDashboard from './pages/Dashboard/AdminDashboard';
+
+// Health Information Pages
+import HealthArticles from './pages/HealthArticles';
+import DiseaseInformation from './pages/DiseaseInformation';
+import MedicationGuides from './pages/MedicationGuides';
+import PreventiveCare from './pages/PreventiveCare';
+import MentalHealth from './pages/MentalHealth';
 
 // Dashboard selector based on user role
 const DashboardSelector = () => {
@@ -42,6 +49,13 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              
+              {/* Public Health Information Routes */}
+              <Route path="/health-articles" element={<HealthArticles />} />
+              <Route path="/disease-information" element={<DiseaseInformation />} />
+              <Route path="/medication-guides" element={<MedicationGuides />} />
+              <Route path="/preventive-care" element={<PreventiveCare />} />
+              <Route path="/mental-health" element={<MentalHealth />} />
               
               {/* Protected routes */}
               <Route 
