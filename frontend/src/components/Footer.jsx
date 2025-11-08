@@ -32,15 +32,15 @@ const Footer = () => {
             <h4 className="font-semibold mb-4 text-yellow-400">Contact</h4>
             <ul className="space-y-3 text-blue-100">
               <li className="flex items-center space-x-3">
-                <FaEnvelope className="text-yellow-400 flex-shrink-0" />
+                <FaEnvelope className="text-yellow-400 -shrink-0" />
                 <span>caresync@gmail.com</span>
               </li>
               <li className="flex items-center space-x-3">
-                <FaPhone className="text-yellow-400 flex-shrink-0" />
+                <FaPhone className="text-yellow-400 shrink-0" />
                 <span>0700235674 - Lyndah</span>
               </li>
               <li className="flex items-center space-x-3">
-                <FaFacebook className="text-yellow-400 flex-shrink-0" />
+                <FaFacebook className="text-yellow-400 shrink-0" />
                 <span>CareSync</span>
               </li>
             </ul>
