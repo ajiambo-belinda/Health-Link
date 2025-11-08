@@ -42,6 +42,11 @@ const Navbar = () => {
                   Symptom Checker
                 </Link>
                 
+                {/* ✅ ADDED CHAT/MESSAGES LINK HERE */}
+                <Link to="/chat" className="text-gray-600 hover:text-blue-600 transition-colors">
+                  Messages
+                </Link>
+                
                 {/* User Menu */}
                 <div className="flex items-center space-x-4">
                   <span className="text-gray-700">
