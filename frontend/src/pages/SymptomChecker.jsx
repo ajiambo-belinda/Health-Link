@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { symptomAPI } from '../api/apiService';
+import { symptomAPI } from '../services/api';
 
 const SymptomChecker = () => {
   const [symptoms, setSymptoms] = useState([]);
