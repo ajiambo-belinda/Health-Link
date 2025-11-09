@@ -16,15 +16,26 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Try to load userRoutes with error handling
+// Try to load routes with error handling
 let userRoutesLoaded = false;
+let authRoutesLoaded = false;
+
 try {
   const userRoutes = await import('./routes/userRoutes.js');
   app.use('/api/users', userRoutes.default || userRoutes);
   userRoutesLoaded = true;
   console.log(' User routes loaded successfully');
 } catch (error) {
-  console.log('  User routes not loaded:', error.message);
+  console.log(' User routes not loaded:', error.message);
+}
+
+try {
+  const authRoutes = await import('./routes/authRoutes.js');
+  app.use('/api/auth', authRoutes.default || authRoutes);
+  authRoutesLoaded = true;
+  console.log(' Auth routes loaded successfully');
+} catch (error) {
+  console.log(' Auth routes not loaded:', error.message);
 }
 
 // Test routes
@@ -35,9 +46,11 @@ app.get('/api/health', (req, res) => {
     features: [
       'Database', 
       'Error Handling',
-      ...(userRoutesLoaded ? ['User Routes'] : [])
+      ...(userRoutesLoaded ? ['User Routes'] : []),
+      ...(authRoutesLoaded ? ['Auth Routes'] : [])
     ],
-    userRoutes: userRoutesLoaded ? 'Active' : 'Disabled - fixing imports'
+    userRoutes: userRoutesLoaded ? 'Active' : 'Disabled',
+    authRoutes: authRoutesLoaded ? 'Active' : 'Disabled'
   });
 });
 
@@ -47,5 +60,6 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(` Server running on port ${PORT}`);
-  console.log(userRoutesLoaded ? ' User routes: /api/users' : '  User routes: Disabled');
+  console.log(userRoutesLoaded ? ' User routes: /api/users' : ' User routes: Disabled');
+  console.log(authRoutesLoaded ? ' Auth routes: /api/auth' : ' Auth routes: Disabled');
 });
