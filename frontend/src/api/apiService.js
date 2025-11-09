@@ -24,6 +24,19 @@ api.interceptors.request.use(
   }
 );
 
+// Handle responses
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Auth API
 export const authAPI = {
   register: (userData) => api.post('/users/register', userData),
@@ -31,11 +44,21 @@ export const authAPI = {
   getProfile: () => api.get('/users/profile'),
 };
 
-// Appointments API
-export const appointmentAPI = {
-  create: (appointmentData) => api.post('/appointments', appointmentData),
+// Appointments API calls
+export const appointmentsAPI = {
   getAll: () => api.get('/appointments'),
-  update: (id, updateData) => api.put(`/appointments/${id}`, updateData),
+  getById: (id) => api.get(`/appointments/${id}`),
+  create: (appointmentData) => api.post('/appointments', appointmentData),
+  update: (id, appointmentData) => api.put(`/appointments/${id}`, appointmentData),
+  delete: (id) => api.delete(`/appointments/${id}`),
+  getAvailableSlots: (doctorId, date) => api.get(`/appointments/slots/${doctorId}?date=${date}`),
+};
+
+// Users API calls
+export const usersAPI = {
+  getDoctors: () => api.get('/users/doctors'),
+  getPatients: () => api.get('/users/patients'),
+  updateProfile: (userData) => api.put('/users/profile', userData),
 };
 
 // Health Tips API
