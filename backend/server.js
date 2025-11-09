@@ -22,15 +22,15 @@ try {
   const userRoutes = await import('./routes/userRoutes.js');
   app.use('/api/users', userRoutes.default || userRoutes);
   userRoutesLoaded = true;
-  console.log('✅ User routes loaded successfully');
+  console.log(' User routes loaded successfully');
 } catch (error) {
-  console.log('⚠️  User routes not loaded:', error.message);
+  console.log('  User routes not loaded:', error.message);
 }
 
 // Test routes
 app.get('/api/health', (req, res) => {
   res.json({ 
-    message: '✅ Health-Link Backend running!',
+    message: ' Health-Link Backend running!',
     status: 'healthy',
     features: [
       'Database', 
@@ -46,6 +46,6 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(userRoutesLoaded ? '👤 User routes: /api/users' : '⚠️  User routes: Disabled');
+  console.log(` Server running on port ${PORT}`);
+  console.log(userRoutesLoaded ? ' User routes: /api/users' : '  User routes: Disabled');
 });
