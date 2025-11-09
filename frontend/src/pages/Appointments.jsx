@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { appointmentsAPI, usersAPI } from '../services/api';
+import { appointmentsAPI, usersAPI } from "../../Api/Apiserver";
 import { useApi } from '../hooks/useApi';
 
 const Appointments = () => {
