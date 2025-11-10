@@ -14,7 +14,7 @@ const app = express();
 // MIDDLEWARE ORDER MATTERS!
 app.use(express.json()); // ← This FIRST to parse JSON bodies
 app.use(cors({
-  origin: 'http://localhost:5177',
+  origin: 'http://localhost:5173',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']

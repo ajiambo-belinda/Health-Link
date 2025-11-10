@@ -98,9 +98,10 @@ router.post('/register', async (req, res) => {
 // @access  Public
 router.post('/login', async (req, res) => {
   try {
-    console.log('Login request received:', { ...req.body, password: '***' });
     
     const { email, password } = req.body;
+
+    console.log({email, password})
 
     // Validation
     if (!email || !password) {
@@ -161,27 +162,16 @@ router.post('/login', async (req, res) => {
 // @access  Private
 router.get('/profile', async (req, res) => {
   try {
-    // This would require authentication middleware
-    // For now, we'll assume the user ID is in the request (you'll need to add auth middleware later)
-    const user = await User.findById(req.userId);
-    
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: 'User not found'
-      });
-    }
-
+    // For now, return a simple response until you add authentication middleware
     res.json({
       success: true,
       user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role
+        id: 'temp-id',
+        name: 'Temp User',
+        email: 'temp@example.com',
+        role: 'patient'
       }
     });
-
   } catch (error) {
     console.error('Profile error:', error);
     res.status(500).json({
