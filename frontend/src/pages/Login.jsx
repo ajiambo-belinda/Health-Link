@@ -13,13 +13,6 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -61,7 +54,7 @@ const Login = () => {
               type="email"
               required
               value={formData.email}
-              onChange={handleChange}
+              onChange={e=>setFormData(prev =>({...prev, email: e.target.value}))}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
               placeholder="Enter your email"
             />
@@ -77,7 +70,7 @@ const Login = () => {
               type="password"
               required
               value={formData.password}
-              onChange={handleChange}
+               onChange={e=>setFormData(prev =>({...prev, password: e.target.value}))}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
               placeholder="Enter your password"
             />

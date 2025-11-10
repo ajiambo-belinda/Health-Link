@@ -38,6 +38,12 @@ api.interceptors.response.use(
   },
   (error) => {
     console.error('API Error:', error.response?.status, error.config?.url, error.message); // Debug
+    
+    // Enhanced error logging to see what data was sent
+    if (error.config?.data) {
+      console.log('Request data that caused error:', error.config.data);
+    }
+    
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
@@ -47,10 +53,16 @@ api.interceptors.response.use(
   }
 );
 
-// Auth API calls
+// Auth API calls - ENHANCED WITH BETTER ERROR HANDLING
 export const authAPI = {
-  login: (credentials) => api.post('/auth/login', credentials),
-  register: (userData) => api.post('/auth/register', userData),
+  login: (credentials) => {
+    console.log('Login API call with data:', credentials);
+    return api.post('/auth/login', credentials);
+  },
+  register: (userData) => {
+    console.log('Register API call with data:', userData);
+    return api.post('/auth/register', userData);
+  },
   logout: () => api.post('/auth/logout'),
   getProfile: () => api.get('/auth/profile'),
 };
@@ -72,7 +84,7 @@ export const usersAPI = {
   updateProfile: (userData) => api.put('/users/profile', userData),
 };
 
-// Symptom Checker API calls - ADD THIS SECTION
+// Symptom Checker API calls
 export const symptomAPI = {
   analyzeSymptoms: (symptoms) => api.post('/symptoms/analyze', { symptoms }),
   getCommonSymptoms: () => api.get('/symptoms/common'),
@@ -80,7 +92,6 @@ export const symptomAPI = {
   saveSymptomHistory: (symptomData) => api.post('/symptoms/history', symptomData),
   getSymptomHistory: () => api.get('/symptoms/history'),
 };
-
 
 // Health Records API calls
 export const healthRecordsAPI = {
@@ -97,7 +108,5 @@ export const chatAPI = {
   sendMessage: (messageData) => api.post('/chat/messages', messageData),
   startConversation: (participantId) => api.post('/chat/conversations', { participantId }),
 };
-
-
 
 export default api;
