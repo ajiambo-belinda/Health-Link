@@ -11,10 +11,14 @@ dotenv.config();
 connectDB();
 
 const app = express();
-
-// Middleware
-app.use(express.json());
-app.use(cors());
+// MIDDLEWARE ORDER MATTERS!
+app.use(express.json()); // ← This FIRST to parse JSON bodies
+app.use(cors({
+  origin: 'http://localhost:5177',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+})); // ← CORS after JSON parsing
 
 // Try to load routes with error handling
 let userRoutesLoaded = false;
