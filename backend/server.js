@@ -4,66 +4,86 @@ import cors from 'cors';
 import connectDB from './config/db.js';
 import { errorHandler } from './middleware/errorMiddleware.js';
 
-// Load environment variables
-dotenv.config();
+dotenv.config(); // Load environment variables
 
-// Connect to MongoDB
-connectDB();
+await connectDB(); // Await DB connection if it's async
 
 const app = express();
-// MIDDLEWARE ORDER MATTERS!
-app.use(express.json()); // ← This FIRST to parse JSON bodies
+
+// Middleware
+app.use(express.json()); // Parse JSON bodies first
+
 app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
-})); // ← CORS after JSON parsing
+}));
 
-// Try to load routes with error handling
+// Route loading flags
 let userRoutesLoaded = false;
+let appointmentRoutesLoaded = false;
 let authRoutesLoaded = false;
 
-try {
-  const userRoutes = await import('./routes/userRoutes.js');
-  app.use('/api/users', userRoutes.default || userRoutes);
-  userRoutesLoaded = true;
-  console.log(' User routes loaded successfully');
-} catch (error) {
-  console.log(' User routes not loaded:', error.message);
+// Async function to load routes to ensure proper await handling
+async function loadRoutes() {
+  try {
+    const userRoutes = await import('./routes/userRoutes.js');
+    app.use('/api/users', userRoutes.default || userRoutes);
+    userRoutesLoaded = true;
+    console.log('User routes loaded successfully');
+  } catch (error) {
+    console.error('User routes not loaded:', error.message);
+  }
+
+  try {
+    const appointmentRoutes = await import('./routes/appointmentRoutes.js');
+    app.use('/api/appointments', appointmentRoutes.default || appointmentRoutes);
+    appointmentRoutesLoaded = true;
+    console.log('Appointment routes loaded successfully');
+  } catch (error) {
+    console.error('Appointment routes not loaded:', error.message);
+  }
+
+  try {
+    const authRoutes = await import('./routes/authRoutes.js');
+    app.use('/api/auth', authRoutes.default || authRoutes);
+    authRoutesLoaded = true;
+    console.log('Auth routes loaded successfully');
+  } catch (error) {
+    console.error('Auth routes not loaded:', error.message);
+  }
 }
 
-try {
-  const authRoutes = await import('./routes/authRoutes.js');
-  app.use('/api/auth', authRoutes.default || authRoutes);
-  authRoutesLoaded = true;
-  console.log(' Auth routes loaded successfully');
-} catch (error) {
-  console.log(' Auth routes not loaded:', error.message);
-}
+// Load all routes before starting server
+await loadRoutes();
 
-// Test routes
+// Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.json({ 
-    message: ' Health-Link Backend running!',
+  res.json({
+    message: 'Health-Link Backend running!',
     status: 'healthy',
     features: [
-      'Database', 
+      'Database',
       'Error Handling',
       ...(userRoutesLoaded ? ['User Routes'] : []),
+      ...(appointmentRoutesLoaded ? ['Appointment Routes'] : []),
       ...(authRoutesLoaded ? ['Auth Routes'] : [])
     ],
     userRoutes: userRoutesLoaded ? 'Active' : 'Disabled',
+    appointmentRoutes: appointmentRoutesLoaded ? 'Active' : 'Disabled',
     authRoutes: authRoutesLoaded ? 'Active' : 'Disabled'
   });
 });
 
-// Error middleware
+// Error middleware - should be last
 app.use(errorHandler);
 
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(` Server running on port ${PORT}`);
-  console.log(userRoutesLoaded ? ' User routes: /api/users' : ' User routes: Disabled');
-  console.log(authRoutesLoaded ? ' Auth routes: /api/auth' : ' Auth routes: Disabled');
+  console.log(`Server running on port ${PORT}`);
+  console.log(userRoutesLoaded ? 'User routes: /api/users' : 'User routes: Disabled');
+  console.log(appointmentRoutesLoaded ? 'Appointment routes: /api/appointments' : 'Appointment routes: Disabled');
+  console.log(authRoutesLoaded ? 'Auth routes: /api/auth' : 'Auth routes: Disabled');
 });
