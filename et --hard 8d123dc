@@ -1,0 +1,76 @@
+[33mfea6989[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix: create app.css file for build
+[33m0559de2[m fix: remove comment from App.css import
+[33m66fd452[m fix: add missing App.css import
+[33mc18d94b[m fix: correct css import path in main.jsx
+[33m7b457b0[m initial commit
+[33m047cfc7[m initial commit
+[33ma27cabf[m commit changes made in authRoutes.js
+[33mc779283[m render.yaml
+[33m219e76d[m commit the files i have made changes in
+[33md743123[m Fix backend API and CORS configuration
+[33m8d123dc[m Fix frontend-backend connection and authentication flow
+[33m4ca11f0[m commit changes
+[33m8b4a0f0[m feat: Add user authentication system
+[33mf68b65d[m initial commit
+[33m7c8db4b[m feat: Add API service integration and update pages
+[33mb0a26d8[m update apiservice.js
+[33m41f33f4[m initial commit
+[33m7bae8bd[m commit useApi.jsx
+[33m9474a08[m Update dependencies in package.json
+[33m966f0cd[m Save changes before filter-branch
+[33m8a8b0cc[m commit changes in login.jsx
+[33m4b964c5[m commit changes in apiServer.js
+[33me9e9117[m initial commit
+[33m1a67f18[m commit changes made in navbar
+[33mfcf3ca6[m changes made in footer
+[33m56c8d86[m commit changes in footer
+[33macf57f8[m commit changes in app.jxs
+[33m52b2666[m initial commit
+[33m4c2c3dd[m initial commit
+[33m5d7f9e5[m initial commit
+[33m5b23b05[m initial commit
+[33m3080e44[m commithealtarticles.jsx
+[33md09df84[m Fix React component imports and resolve development server issues
+[33m387cdc3[m initial commit
+[33md5cac4f[m commit changes
+[33m02d64cc[m initial commit
+[33m02fdc20[m initial commit
+[33mdbd248c[m add commited changes
+[33m392a358[m commit added changes
+[33mffbed4a[m initial commit
+[33m4f1fe94[m initial commit
+[33m474bb5d[m initial commit
+[33md8a4531[m initial commit
+[33m6aebd1e[m initial commit
+[33m2778e5b[m initial commit
+[33md39ebea[m initial commit
+[33ma2e72ea[m initial commit
+[33me330841[m initial commit
+[33meccd716[m initial commit
+[33ma108860[m initial commit
+[33m64306dc[m initial commit
+[33ma5e6032[m commit changes i made
+[33mfd0647f[m initial commit
+[33m1753c92[m initial commit
+[33ma3c843a[m initial commit
+[33m80369d2[m initial commit
+[33ma8139cf[m initial commit
+[33m9a62969[m initial commit
+[33m6cc67ab[m initial commit
+[33m1606624[m chore: remove debug test file
+[33m9ce3873[m feat: complete working Health-Link backend API
+[33m2fa1c6b[m Add Doctor model
+[33mf23bce2[m Add express-async-handler dependency
+[33mccc0ec2[m Add socket.io dependency
+[33ma55878d[m Update package.json: set type to module for ES6 imports
+[33m1a85d25[m Add server.js
+[33mff65336[m initial commit package.json
+[33mbb544f5[m initial commit
+[33m44e06e5[m initial commit
+[33m3da144b[m initial commit
+[33m03dba8c[m initial commit
+[33m95906b1[m initial commit
+[33m6d5223b[m initial commit
+[33m7b30e7b[m initial commit
+[33m143dae9[m initial commit
+[33m55e2220[m Initial commit
